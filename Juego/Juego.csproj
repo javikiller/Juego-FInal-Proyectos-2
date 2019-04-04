@@ -359,9 +359,13 @@
     <Compile Include="Assets\Scripts\Movenemigo.cs" />
     <Compile Include="Assets\Scripts\Objects\ArrowFollow.cs" />
     <Compile Include="Assets\Scripts\Objects\ColumnasUp.cs" />
+    <Compile Include="Assets\Scripts\Objects\ColumnasUp1.cs" />
+    <Compile Include="Assets\Scripts\Objects\ColumnasUp2.cs" />
     <Compile Include="Assets\Scripts\Objects\Item.cs" />
     <Compile Include="Assets\Scripts\Objects\MovibleObject.cs" />
     <Compile Include="Assets\Scripts\Objects\PressionButton.cs" />
+    <Compile Include="Assets\Scripts\Objects\PressionButton1.cs" />
+    <Compile Include="Assets\Scripts\Objects\PressionButton2.cs" />
     <Compile Include="Assets\Scripts\OrbitCamera.cs" />
     <Compile Include="Assets\Scripts\RPG_Controller.cs" />
   </ItemGroup>
