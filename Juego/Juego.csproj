@@ -321,6 +321,8 @@
     <Compile Include="Assets\EazyCamera\Code\StateMachine\CameraStates\EzStationaryState.cs" />
     <Compile Include="Assets\EazyCamera\Code\StateMachine\EzStateMachine.cs" />
     <Compile Include="Assets\EazyCamera\Code\Util\ExtensionMethods.cs" />
+    <Compile Include="Assets\IA(prueba)\MoveTo.cs" />
+    <Compile Include="Assets\IA(prueba)\PlayerOffMooving2.cs" />
     <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\CameraTarget.cs" />
     <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\EffectController.cs" />
     <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Script\EffectDemo.cs" />
@@ -349,6 +351,7 @@
     <Compile Include="Assets\Scripts\Characters\RangeAtack.cs" />
     <Compile Include="Assets\Scripts\Characters\Vida_Enemigo.cs" />
     <Compile Include="Assets\Scripts\Characters\Vida_Player.cs" />
+    <Compile Include="Assets\Scripts\dasdsadsad.cs" />
     <Compile Include="Assets\Scripts\MaquinaDeEstados\ControladorNavMesh.cs" />
     <Compile Include="Assets\Scripts\MaquinaDeEstados\ControladorVision.cs" />
     <Compile Include="Assets\Scripts\MaquinaDeEstados\EstadoAlerta.cs" />
@@ -368,6 +371,7 @@
     <Compile Include="Assets\Scripts\Objects\PressionButton2.cs" />
     <Compile Include="Assets\Scripts\OrbitCamera.cs" />
     <Compile Include="Assets\Scripts\RPG_Controller.cs" />
+    <Compile Include="Assets\Scripts\VidaEnemigo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EazyCamera\README.txt" />

@@ -9,6 +9,8 @@ TagManager:
   - Escudo
   - PesoBoton
   - Peso
+  - EnemyCollid
+  - Espada
   layers:
   - Default
   - TransparentFX

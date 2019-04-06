@@ -27,14 +27,13 @@ public class Movimiento : MonoBehaviour
     public GameObject Mirilla;
     public GameObject Mirilla1;
     public bool ground;
-
-    
+        
     public string motionParam = "motion";
     public string jumpParam = "jump";
     public string doubleJumpParam = "doubleJump";
     public string fallingParam = "jumpFall";
+    public string attackParam = "attack";
 
-    
     [Range(0, 1f)]
     public float StartAnimTime = 0.3f;
     [Range(0, 1f)]
@@ -76,6 +75,8 @@ public class Movimiento : MonoBehaviour
     private float velx = Input.GetAxis("L_XAxis_1");
 
     private float acelerationFallCont = 0;
+    public 
+
 
     void Start()
     {
@@ -109,6 +110,7 @@ public class Movimiento : MonoBehaviour
         if (pj == false)
         {
             Apuntar();
+            Ataque();
 
             if (!RangeAtack.ranged)
             {
@@ -157,10 +159,22 @@ public class Movimiento : MonoBehaviour
         {
             acelerationFallCont += 1f * Time.deltaTime;
             Vector3 down = new Vector3(0, -1, 0);
-            rb.AddForce(down * 9.8f * acelerationFallCont);
+            rb.AddForce(down * 19.8f * acelerationFallCont);
         }
     }
   
+    public void Ataque()
+    {
+        if (Input.GetAxis("TriggersR_1") != 0)
+        {
+            animator.SetBool(attackParam,true);
+        }
+        if (Input.GetAxis("TriggersR_1") == 0)
+        {
+            animator.SetBool(attackParam, false);
+        }
+
+    }
 
     public void Apuntar()
     {
@@ -250,13 +264,13 @@ public class Movimiento : MonoBehaviour
         if (Input.GetButtonDown("A_1") && contSalto ==0)
         {
             JumpAux += 1 * Time.deltaTime;
-            rb.AddForce(rb.transform.up * 650);
+            rb.AddForce(rb.transform.up * 1650);
             
             contSalto += 1;
             
             if (Input.GetButtonDown("A_1") && contSalto == 1)
             {
-                rb.AddForce(rb.transform.up * 650);
+                rb.AddForce(rb.transform.up * 1250);
                 animator.SetBool(doubleJumpParam, true);
                 JumpAux = 0;
                 animator.SetFloat(fallingParam, JumpAux, StartAnimTime, Time.deltaTime);
