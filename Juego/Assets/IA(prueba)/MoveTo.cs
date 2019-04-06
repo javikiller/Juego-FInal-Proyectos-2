@@ -12,17 +12,21 @@ public class MoveTo : MonoBehaviour
     public GameObject thisobj;
     public bool nearPlayer = false;
     public float auxVida;
-
+    public Animator animator;
+    public string walkParam = "walking";
+    public string followParam = "follow";
+    public string combatParam = "combat";
 
     void Start()
     {
+        animator.SetBool(walkParam, true);
         agent = GetComponent<NavMeshAgent>();
         thisobj = this.gameObject;
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
         // approaches a destination point).
         //agent.autoBraking = false;
-
+        
         GotoNextPoint();
     }
 
@@ -36,6 +40,8 @@ public class MoveTo : MonoBehaviour
             agent.isStopped = true;
             Follow();
             Attack();
+            animator.SetBool(walkParam, false);
+            animator.SetBool(followParam, true);
         }
         if (!nearPlayer)
         {
@@ -44,7 +50,8 @@ public class MoveTo : MonoBehaviour
             {
                 GotoNextPoint();
             }
-                
+            animator.SetBool(walkParam, true);
+            animator.SetBool(followParam, false);
         }       
         if(VidaEnemigo.vida <= 0)
         {
@@ -77,10 +84,12 @@ public class MoveTo : MonoBehaviour
         if (agent.remainingDistance < 3.5f)
         {
             agent.isStopped = true;
+            animator.SetBool(combatParam, true);
         }
         if (agent.remainingDistance > 3.5f)
         {
             agent.isStopped = false;
+            animator.SetBool(combatParam, false);
         }
     }
 

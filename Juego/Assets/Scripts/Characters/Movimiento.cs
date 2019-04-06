@@ -15,7 +15,7 @@ public class Movimiento : MonoBehaviour
     public float maximumY = 60F;
     public float minimumX = -360F;
     public float maximumX = 360F;
-
+    
 
     public Rigidbody rb;
     public float walkspeed;
@@ -47,6 +47,7 @@ public class Movimiento : MonoBehaviour
     public float inputSensitivity = 150.0f;
     public float clampAngle = 80.0f;
     public float velBot = 5f;
+    public float Velocidad = 80;
 
     public Transform mira;
     public Transform ojos;
@@ -154,12 +155,15 @@ public class Movimiento : MonoBehaviour
         if (ground)
         {
             acelerationFallCont = 0;
+            Velocidad = 80;
+            
         }
         if(ground == false)
         {
             acelerationFallCont += 1f * Time.deltaTime;
             Vector3 down = new Vector3(0, -1, 0);
             rb.AddForce(down * 19.8f * acelerationFallCont);
+            Velocidad = 150f;
         }
     }
   
@@ -205,34 +209,34 @@ public class Movimiento : MonoBehaviour
     {
         if (Input.GetAxis("L_YAxis_1") < 0)
         {
-            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -80));
+            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad));
             if (Input.GetButton("LS_1") && ground)
             {
-                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -120));
+                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad/2))));
             }
         }
         if (Input.GetAxis("L_YAxis_1") > 0)
         {
-            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -80));
+            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad));
             if (Input.GetButton("LS_1") && ground)
             {
-                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -120));
+                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad / 2))));
             }
         }
         if (Input.GetAxis("L_XAxis_1") > 0)
         {
-            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * 80));
+            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad));
             if (Input.GetButton("LS_1") && ground)
             {
-                rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * 120));
+                rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * (Velocidad + (Velocidad / 2))));
             }
         }
         if (Input.GetAxis("L_XAxis_1") < 0)
         {
-            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * 80));
+            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad));
             if (Input.GetButton("LS_1") && ground)
             {
-                rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * 120));
+                rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * (Velocidad + (Velocidad / 2))));
             }
         }
     }
@@ -264,13 +268,13 @@ public class Movimiento : MonoBehaviour
         if (Input.GetButtonDown("A_1") && contSalto ==0)
         {
             JumpAux += 1 * Time.deltaTime;
-            rb.AddForce(rb.transform.up * 1650);
+            rb.AddForce(rb.transform.up * 650);
             
             contSalto += 1;
             
             if (Input.GetButtonDown("A_1") && contSalto == 1)
             {
-                rb.AddForce(rb.transform.up * 1250);
+                rb.AddForce(rb.transform.up * 650);
                 animator.SetBool(doubleJumpParam, true);
                 JumpAux = 0;
                 animator.SetFloat(fallingParam, JumpAux, StartAnimTime, Time.deltaTime);
