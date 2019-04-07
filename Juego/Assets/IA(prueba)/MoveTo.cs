@@ -16,6 +16,12 @@ public class MoveTo : MonoBehaviour
     public string walkParam = "walking";
     public string followParam = "follow";
     public string combatParam = "combat";
+    public string fwParam = "followCombat";
+    public float contadorAtaque = 0;
+    public Transform playerLookAt;
+    public GameObject enemySword;
+    private Rigidbody rb;
+   
 
     void Start()
     {
@@ -26,8 +32,9 @@ public class MoveTo : MonoBehaviour
         // between points (ie, the agent doesn't slow down as it
         // approaches a destination point).
         //agent.autoBraking = false;
-        
+        enemySword.SetActive(false);
         GotoNextPoint();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -37,6 +44,7 @@ public class MoveTo : MonoBehaviour
         // close to the current one.
         if (nearPlayer)
         {
+            transform.LookAt(playerLookAt);
             agent.isStopped = true;
             Follow();
             Attack();
@@ -57,6 +65,7 @@ public class MoveTo : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        
     }
 
     void GotoNextPoint()
@@ -81,15 +90,36 @@ public class MoveTo : MonoBehaviour
 
     void Attack()
     {
-        if (agent.remainingDistance < 3.5f)
+        if (agent.remainingDistance < 2.5f)
         {
+            animator.SetBool(followParam, false);
+            animator.SetBool(fwParam, false);
+            contadorAtaque += 1 * Time.deltaTime;
             agent.isStopped = true;
-            animator.SetBool(combatParam, true);
+            if(contadorAtaque <= 0.75f)
+            {
+                enemySword.SetActive(true);
+                animator.SetBool(combatParam, true); 
+            }
+            if(contadorAtaque >= 1)
+            {
+                animator.SetBool(combatParam, false);
+                enemySword.SetActive(false);
+
+            }
+            if (contadorAtaque >= 3)
+            {
+                
+                contadorAtaque = 0;
+            }
+
         }
-        if (agent.remainingDistance > 3.5f)
-        {
+        if (agent.remainingDistance > 2.5f)
+        {            
             agent.isStopped = false;
+            animator.SetBool(fwParam, true);
             animator.SetBool(combatParam, false);
+            animator.SetBool(followParam, true);
         }
     }
 

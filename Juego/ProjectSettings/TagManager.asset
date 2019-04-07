@@ -11,6 +11,7 @@ TagManager:
   - Peso
   - EnemyCollid
   - Espada
+  - EspadaEnemiga
   layers:
   - Default
   - TransparentFX

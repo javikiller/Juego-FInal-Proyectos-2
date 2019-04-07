@@ -4,7 +4,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class Movimiento : MonoBehaviour
-{    
+{
+    public float life;
+
     public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
     public RotationAxes axes = RotationAxes.MouseXAndY;
     public float sensitivityX ;
@@ -76,11 +78,16 @@ public class Movimiento : MonoBehaviour
     private float velx = Input.GetAxis("L_XAxis_1");
 
     private float acelerationFallCont = 0;
-    public 
+    public bool dmg = false;
+    public float dmgAux = 0;
+    public GameObject sword;
+
+    
 
 
     void Start()
     {
+        life = 200;
         camara.SetActive(true);
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
@@ -92,6 +99,17 @@ public class Movimiento : MonoBehaviour
 
     void Update ()  
     {
+        life += 2 * Time.deltaTime;
+
+        if(life >= 200)
+        {
+            life = 200;
+        }
+        if(life <= 0)
+        {
+            life = 0;
+        }
+
         pjAux = pj;
         if (Input.GetAxis("DPad_YAxis_1") == 1)
         {
@@ -112,7 +130,7 @@ public class Movimiento : MonoBehaviour
         {
             Apuntar();
             Ataque();
-
+            
             if (!RangeAtack.ranged)
             {
                 MovementFunction();
@@ -121,7 +139,30 @@ public class Movimiento : MonoBehaviour
 
                 vely = Input.GetAxis("L_YAxis_1");
                 velx = Input.GetAxis("L_XAxis_1");
+
+                if (dmg)
+                {
+                    dmgAux += 1 * Time.deltaTime;
+                    sword.SetActive(true);
+                    if(dmgAux >= 0.6f)
+                    {
+                        sword.SetActive(false);
+                    }
+                }
+                if (!dmg)
+                {
+                    dmgAux = 0;
+                    sword.SetActive(false);
+                }
+                if (dmgAux >= 1.2f)
+                {
+                    dmg = false;
+                }
+
+
                 
+
+
                 if (Input.GetButton("LS_1"))
                 {
                     SpeedAux = 1.5f;
@@ -169,8 +210,13 @@ public class Movimiento : MonoBehaviour
   
     public void Ataque()
     {
-        if (Input.GetAxis("TriggersR_1") != 0)
+        if (Input.GetAxis("TriggersR_1") != 0 && !dmg)
         {
+            dmg = true;
+
+            
+            
+
             animator.SetBool(attackParam,true);
         }
         if (Input.GetAxis("TriggersR_1") == 0)
@@ -302,6 +348,10 @@ public class Movimiento : MonoBehaviour
         {
             ground = true;
             
+        }
+        if(coll.tag == "EspadaEnemiga")
+        {
+            life -= 20;
         }
     }
     void OnTriggerExit(Collider coll)
