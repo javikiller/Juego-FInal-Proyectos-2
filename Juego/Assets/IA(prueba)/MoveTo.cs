@@ -17,6 +17,10 @@ public class MoveTo : MonoBehaviour
     public string followParam = "follow";
     public string combatParam = "combat";
     public string fwParam = "followCombat";
+    public string dmgTakenParam = "dmgTaken";
+    public string mortoParam = "morto";
+    public bool dmgOn = false;
+    public float dmgOnAux;
     public float contadorAtaque = 0;
     public Transform playerLookAt;
     public GameObject enemySword;
@@ -39,36 +43,69 @@ public class MoveTo : MonoBehaviour
 
     void Update()
     {
-        auxVida = VidaEnemigo.vida;
-        // Choose the next destination point when the agent gets
-        // close to the current one.
-        if (nearPlayer)
+        if (VidaEnemigo.alaif == true)
         {
-            transform.LookAt(playerLookAt);
-            agent.isStopped = true;
-            Follow();
-            Attack();
-            animator.SetBool(walkParam, false);
-            animator.SetBool(followParam, true);
-        }
-        if (!nearPlayer)
-        {
-            agent.isStopped = false;
-            if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            animator.SetBool(mortoParam, false);
+            auxVida = VidaEnemigo.vida;
+
+            if (nearPlayer)
             {
-                GotoNextPoint();
+                transform.LookAt(playerLookAt);
+                agent.isStopped = true;
+                Follow();
+                Attack();
+                animator.SetBool(walkParam, false);
+                animator.SetBool(followParam, true);
             }
-            animator.SetBool(walkParam, true);
-            animator.SetBool(followParam, false);
-        }       
-        if(VidaEnemigo.vida <= 0)
-        {
-            Destroy(this.gameObject);
+            if (!nearPlayer)
+            {
+                agent.isStopped = false;
+                if (!agent.pathPending && agent.remainingDistance < 0.5f)
+                {
+                    GotoNextPoint();
+                }
+                animator.SetBool(walkParam, true);
+                animator.SetBool(followParam, false);
+            }
+
+            if (dmgOn)
+            {
+                dmgOnAux += 1 * Time.deltaTime;
+                animator.SetBool(dmgTakenParam, true);
+                if (dmgOnAux >= 1)
+                {
+
+
+                    dmgOnAux = 0;
+                    dmgOn = false;
+
+                }
+                if (dmgOnAux == 0)
+                {
+                    animator.SetBool(dmgTakenParam, false);                   
+                }
+
+            }
         }
         
+        if (!VidaEnemigo.alaif)
+        {
+            VidaEnemigo.vida = 0;
+            animator.SetBool(mortoParam, true);
+            animator.SetBool(walkParam, false);
+            animator.SetBool(followParam, false);
+            animator.SetBool(combatParam, false);
+            animator.SetBool(fwParam, false);
+            animator.SetBool(dmgTakenParam, false);
+        }
     }
 
-    void GotoNextPoint()
+    public void RecibirDmg()
+    {
+        dmgOn = true;
+    }
+
+    public void GotoNextPoint()
     {
         // Returns if no points have been set up
         if (points.Length == 0)
@@ -82,7 +119,7 @@ public class MoveTo : MonoBehaviour
         destPoint = (destPoint + 1) % points.Length;
     }
 
-    void Follow()
+    public void Follow()
     {
         agent.isStopped = false;
         agent.destination = target.position;
@@ -130,7 +167,11 @@ public class MoveTo : MonoBehaviour
         {
             nearPlayer = true;
         }
-        
+        if (other.tag == "Espada" && !dmgOn)
+        {
+            RecibirDmg();            
+        }
+
     }
     void OnTriggerExit(Collider other)
     {

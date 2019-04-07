@@ -29,12 +29,13 @@ public class Movimiento : MonoBehaviour
     public GameObject Mirilla;
     public GameObject Mirilla1;
     public bool ground;
-        
+    
     public string motionParam = "motion";
     public string jumpParam = "jump";
     public string doubleJumpParam = "doubleJump";
     public string fallingParam = "jumpFall";
     public string attackParam = "attack";
+    public string dmgDoneParam = "dmgDone";
 
     [Range(0, 1f)]
     public float StartAnimTime = 0.3f;
@@ -81,8 +82,9 @@ public class Movimiento : MonoBehaviour
     public bool dmg = false;
     public float dmgAux = 0;
     public GameObject sword;
-
-    
+    public bool dmgOn = false;
+    public float dmgOnAux;
+        
 
 
     void Start()
@@ -123,9 +125,26 @@ public class Movimiento : MonoBehaviour
             pj = false;
 
         }
+
+        if (dmgOn)
+        {
+            dmgOnAux += 1 * Time.deltaTime;
+            animator.SetBool(dmgDoneParam, true);
+            if (dmgOnAux >= 1)
+            {
+                
+               
+                dmgOnAux = 0;
+                dmgOn = false;
+                
+            }
+            if (dmgOnAux == 0)
+            {
+                animator.SetBool(dmgDoneParam, false);
+            }
+
+        }
         
-
-
         if (pj == false)
         {
             Apuntar();
@@ -207,14 +226,39 @@ public class Movimiento : MonoBehaviour
             Velocidad = 150f;
         }
     }
-  
+
+    public void RecibirDmg()
+    {
+        dmgOn = true;                
+    }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.tag == "floor")
+        {
+            ground = true;
+
+        }
+        if (coll.tag == "EspadaEnemiga" && !dmgOn)
+        {
+            RecibirDmg();
+            life -= 20;
+        }
+    }
+    void OnTriggerExit(Collider coll)
+    {
+        if (coll.tag == "floor")
+        {
+            ground = false;
+        }
+      
+    }
+
     public void Ataque()
     {
         if (Input.GetAxis("TriggersR_1") != 0 && !dmg)
         {
-            dmg = true;
-
-            
+            dmg = true;                    
             
 
             animator.SetBool(attackParam,true);
@@ -341,27 +385,7 @@ public class Movimiento : MonoBehaviour
        
 
     }
-
-    void OnTriggerEnter(Collider coll)
-    {
-        if (coll.tag == "floor")
-        {
-            ground = true;
-            
-        }
-        if(coll.tag == "EspadaEnemiga")
-        {
-            life -= 20;
-        }
-    }
-    void OnTriggerExit(Collider coll)
-    {
-        if (coll.tag == "floor")
-        {
-            ground = false;
-
-        }
-    }
+   
 
 
     
