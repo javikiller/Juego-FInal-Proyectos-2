@@ -17,7 +17,7 @@ public class MoveTo : MonoBehaviour
     public string followParam = "follow";
     public string combatParam = "combat";
     public string fwParam = "followCombat";
-    public string dmgTakenParam = "dmgTaken";
+    public static string dmgTakenParam = "dmgTaken";
     public string mortoParam = "morto";
     public bool dmgOn = false;
     public float dmgOnAux;
@@ -32,10 +32,7 @@ public class MoveTo : MonoBehaviour
         animator.SetBool(walkParam, true);
         agent = GetComponent<NavMeshAgent>();
         thisobj = this.gameObject;
-        // Disabling auto-braking allows for continuous movement
-        // between points (ie, the agent doesn't slow down as it
-        // approaches a destination point).
-        //agent.autoBraking = false;
+       
         enemySword.SetActive(false);
         GotoNextPoint();
         rb = GetComponent<Rigidbody>();
@@ -67,24 +64,24 @@ public class MoveTo : MonoBehaviour
                 animator.SetBool(walkParam, true);
                 animator.SetBool(followParam, false);
             }
+            if (VidaEnemigo.damaged)
+            {
+                animator.SetBool(dmgTakenParam, true);
+            }
 
             if (dmgOn)
             {
                 dmgOnAux += 1 * Time.deltaTime;
-                animator.SetBool(dmgTakenParam, true);
+                
                 if (dmgOnAux >= 1)
                 {
-
-
                     dmgOnAux = 0;
                     dmgOn = false;
-
                 }
                 if (dmgOnAux == 0)
                 {
                     animator.SetBool(dmgTakenParam, false);                   
                 }
-
             }
         }
         
@@ -107,15 +104,12 @@ public class MoveTo : MonoBehaviour
 
     public void GotoNextPoint()
     {
-        // Returns if no points have been set up
         if (points.Length == 0)
             return;
 
-        // Set the agent to go to the currently selected destination.
         agent.destination = points[destPoint].position;
 
-        // Choose the next point in the array as the destination,
-        // cycling to the start if necessary.
+      
         destPoint = (destPoint + 1) % points.Length;
     }
 
@@ -160,7 +154,8 @@ public class MoveTo : MonoBehaviour
         }
     }
 
-   
+  
+
     void OnTriggerStay(Collider other)
     {
         if(other.tag == "Player")
@@ -169,7 +164,8 @@ public class MoveTo : MonoBehaviour
         }
         if (other.tag == "Espada" && !dmgOn)
         {
-            RecibirDmg();            
+            RecibirDmg();
+            
         }
 
     }

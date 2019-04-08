@@ -12,6 +12,7 @@ TagManager:
   - EnemyCollid
   - Espada
   - EspadaEnemiga
+  - Herrero
   layers:
   - Default
   - TransparentFX

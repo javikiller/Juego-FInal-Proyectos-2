@@ -82,9 +82,10 @@ public class Movimiento : MonoBehaviour
     public bool dmg = false;
     public float dmgAux = 0;
     public GameObject sword;
+    public GameObject betterSword;
     public bool dmgOn = false;
     public float dmgOnAux;
-        
+    public static bool mejora = false;
 
 
     void Start()
@@ -163,15 +164,18 @@ public class Movimiento : MonoBehaviour
                 {
                     dmgAux += 1 * Time.deltaTime;
                     sword.SetActive(true);
-                    if(dmgAux >= 0.6f)
+                    betterSword.SetActive(true);
+                    if (dmgAux >= 0.6f)
                     {
                         sword.SetActive(false);
+                        betterSword.SetActive(false);
                     }
                 }
                 if (!dmg)
                 {
                     dmgAux = 0;
                     sword.SetActive(false);
+                    betterSword.SetActive(false);
                 }
                 if (dmgAux >= 1.2f)
                 {

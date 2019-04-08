@@ -365,6 +365,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\EazyCamera\Code\Camera\Editor\EzCamInspector.cs" />
+    <Compile Include="Assets\Packs\LowPolyWater_Pack\Scripts\Editor\GeneratePlane.cs" />
     <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Editor\EffectControllerInspector.cs" />
     <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Editor\EffectToolBar.cs" />
     <Compile Include="Assets\Particlecollection_Free samples\Plugins\Effect\Editor\RenderEffectInspector.cs" />
@@ -373,6 +374,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EazyCamera\README.txt" />
+    <None Include="Assets\Packs\LowPolyWater_Pack\LowPoly Island\Credits.txt" />
+    <None Include="Assets\Packs\LowPolyWater_Pack\Shaders\WaterShaded.shader" />
     <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\ParticleAddEffect.shader" />
     <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\ParticleAddSoftEffect.shader" />
     <None Include="Assets\Particlecollection_Free samples\Plugins\Effect\Shader\ParticleBlendEffect.shader" />

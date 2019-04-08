@@ -7,7 +7,7 @@ public class VidaEnemigo : MonoBehaviour
     private GameObject enemy;
     public static float vida = 100f;
     public static bool alaif = true;
-    
+    public static bool damaged = false;
 
     // Use this for initialization
     void Start()
@@ -27,6 +27,15 @@ public class VidaEnemigo : MonoBehaviour
     {
         if (other.tag == "Espada")
         {
+            damaged = true;
+            vida -= 25;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Espada")
+        {
+            damaged = false;
             vida -= 25;
         }
     }
