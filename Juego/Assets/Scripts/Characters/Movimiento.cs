@@ -11,7 +11,7 @@ public class Movimiento : MonoBehaviour
     public RotationAxes axes = RotationAxes.MouseXAndY;
     public float sensitivityX ;
     public float sensitivityY ;
-    public float velocidad = 5;
+    public float velocidad = 200;
     public float salto = 10f;
     public float minimumY = -60F;
     public float maximumY = 60F;
@@ -75,8 +75,8 @@ public class Movimiento : MonoBehaviour
     public Animator animator;
     private float SpeedAux = 0;
     public float JumpAux = 0;
-    private float vely = Input.GetAxis("L_YAxis_1");
-    private float velx = Input.GetAxis("L_XAxis_1");
+    private float vely;
+    private float velx;
 
     private float acelerationFallCont = 0;
     public bool dmg = false;
@@ -87,6 +87,10 @@ public class Movimiento : MonoBehaviour
     public float dmgOnAux;
     public static bool mejora = false;
 
+    public float jumpx1;
+    public float jumpx2;
+    public bool jumpxOn1;
+    public bool jumpxOn2;
 
     void Start()
     {
@@ -100,7 +104,7 @@ public class Movimiento : MonoBehaviour
     }
 
 
-    void Update ()  
+    void FixedUpdate ()  
     {
         life += 2 * Time.deltaTime;
 
@@ -111,6 +115,29 @@ public class Movimiento : MonoBehaviour
         if(life <= 0)
         {
             life = 0;
+        }
+
+        if (jumpxOn1)
+        {
+            jumpx1 += 1 * Time.deltaTime;
+            animator.SetBool(jumpParam, true);
+        }
+        if (jumpx1 >= 1)
+        {
+            jumpx1 = 0;
+            animator.SetBool(jumpParam, false);
+            jumpxOn1 = false;
+        }
+        if (jumpxOn2)
+        {
+            jumpx2 += 1 * Time.deltaTime;
+            animator.SetBool(doubleJumpParam, true);
+        }
+        if (jumpx2 >= 1)
+        {
+            jumpx2 = 0;
+            animator.SetBool(doubleJumpParam, false);
+            jumpxOn2 = false;
         }
 
         pjAux = pj;
@@ -155,13 +182,13 @@ public class Movimiento : MonoBehaviour
             {
                 MovementFunction();
                 Giro();
-                Saltar();
+
 
                 vely = Input.GetAxis("L_YAxis_1");
                 velx = Input.GetAxis("L_XAxis_1");
 
                 if (dmg)
-                {
+                {                    
                     dmgAux += 1 * Time.deltaTime;
                     sword.SetActive(true);
                     betterSword.SetActive(true);
@@ -180,9 +207,10 @@ public class Movimiento : MonoBehaviour
                 if (dmgAux >= 1.2f)
                 {
                     dmg = false;
+                    
                 }
 
-
+                Jump();
                 
 
 
@@ -226,9 +254,30 @@ public class Movimiento : MonoBehaviour
         {
             acelerationFallCont += 1f * Time.deltaTime;
             Vector3 down = new Vector3(0, -1, 0);
-            rb.AddForce(down * 19.8f * acelerationFallCont);
+            rb.AddForce(down * 19.8f * acelerationFallCont * 2);
             Velocidad = 150f;
         }
+    }
+
+    public void Jump()
+    {
+
+        if (Input.GetButtonDown("A_1") && ground)
+        {
+            rb.AddForce(rb.transform.up * 650);
+            contSalto = 1;
+            jumpxOn1 = true; jumpx2 += 1 * Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("A_1") && contSalto == 1)
+        {
+            rb.AddForce(rb.transform.up * 650);
+            contSalto = 0;
+            jumpxOn2 = true;
+        }
+
+
+
     }
 
     public void RecibirDmg()
@@ -241,12 +290,19 @@ public class Movimiento : MonoBehaviour
         if (coll.tag == "floor")
         {
             ground = true;
-
+            
         }
         if (coll.tag == "EspadaEnemiga" && !dmgOn)
         {
             RecibirDmg();
             life -= 20;
+        }
+    }
+    private void OnTriggerStay(Collider coll)
+    {
+        if (coll.tag == "floor")
+        {
+            
         }
     }
     void OnTriggerExit(Collider coll)
@@ -303,7 +359,7 @@ public class Movimiento : MonoBehaviour
     {
         if (Input.GetAxis("L_YAxis_1") < 0)
         {
-            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad));
+            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad * 4));
             if (Input.GetButton("LS_1") && ground)
             {
                 rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad/2))));
@@ -311,7 +367,7 @@ public class Movimiento : MonoBehaviour
         }
         if (Input.GetAxis("L_YAxis_1") > 0)
         {
-            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad));
+            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad * 4));
             if (Input.GetButton("LS_1") && ground)
             {
                 rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad / 2))));
@@ -319,7 +375,7 @@ public class Movimiento : MonoBehaviour
         }
         if (Input.GetAxis("L_XAxis_1") > 0)
         {
-            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad));
+            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad * 4));
             if (Input.GetButton("LS_1") && ground)
             {
                 rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * (Velocidad + (Velocidad / 2))));
@@ -327,7 +383,7 @@ public class Movimiento : MonoBehaviour
         }
         if (Input.GetAxis("L_XAxis_1") < 0)
         {
-            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad));
+            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad * 4));
             if (Input.GetButton("LS_1") && ground)
             {
                 rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * (Velocidad + (Velocidad / 2))));
@@ -355,42 +411,37 @@ public class Movimiento : MonoBehaviour
     }
 
     public void Saltar()
-    {
-
-        animator.SetBool(jumpParam, true);
-
-        if (Input.GetButtonDown("A_1") && contSalto ==0)
-        {
-            JumpAux += 1 * Time.deltaTime;
-            rb.AddForce(rb.transform.up * 650);
+    {        
+        //if (ground)
+        //{
+        //    JumpAux += 1;
+        //    rb.AddForce(rb.transform.up * 650);
+           
+        //}
+        //if (!ground && contSalto == 1)
+        //{
+        //    rb.AddForce(rb.transform.up * 650);
+        //    animator.SetBool(doubleJumpParam, true);
+        //    animator.SetFloat(fallingParam, JumpAux, StartAnimTime, Time.deltaTime);
             
-            contSalto += 1;
+        //}
+        //if (JumpAux >= 1)
+        //{
+        //    JumpAux = 0;
+        //}
+        
+
+        //if (ground)
+        //{            
             
-            if (Input.GetButtonDown("A_1") && contSalto == 1)
-            {
-                rb.AddForce(rb.transform.up * 650);
-                animator.SetBool(doubleJumpParam, true);
-                JumpAux = 0;
-                animator.SetFloat(fallingParam, JumpAux, StartAnimTime, Time.deltaTime);
-            }
-            if(JumpAux >= 1)
-            {
-                JumpAux = 0;
-            }
-        }
-       
-        if (ground)
-        {
-            contSalto = 0;
-            animator.SetBool(jumpParam, false);
-            animator.SetBool(doubleJumpParam, false);
-        }
+        //    animator.SetBool(doubleJumpParam, false);
+        //}
 
        
 
     }
    
-
+    
 
     
 }

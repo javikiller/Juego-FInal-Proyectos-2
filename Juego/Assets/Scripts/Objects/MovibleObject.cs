@@ -24,8 +24,7 @@ public class MovibleObject : MonoBehaviour {
 	void Update ()
     {
         aux = touch;
-        Vector3 playerPos = Player.transform.position;       
-        Vector3 objectPos = Front.transform.position;
+        
        
 
         if (touch)
@@ -36,7 +35,7 @@ public class MovibleObject : MonoBehaviour {
             if (Input.GetButton("B_1"))
             {
                 Movimiento2.moovingObject = true;
-                rb.transform.position = objectPos;
+                rb.transform.position = new Vector3(Front.transform.position.x , rb.transform.position.y, Front.transform.position.z );
                 rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY;
 
             }
@@ -54,6 +53,10 @@ public class MovibleObject : MonoBehaviour {
         }
     }
 
+    public void MoverObjeto()
+    {
+
+    }
 }
     
 

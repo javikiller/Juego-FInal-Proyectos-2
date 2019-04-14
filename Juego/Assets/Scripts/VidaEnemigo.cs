@@ -5,7 +5,7 @@ using UnityEngine;
 public class VidaEnemigo : MonoBehaviour
 {
     private GameObject enemy;
-    public static float vida = 100f;
+    public static float vida = 200f;
     public static bool alaif = true;
     public static bool damaged = false;
 

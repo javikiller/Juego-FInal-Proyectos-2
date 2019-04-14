@@ -1610,6 +1610,16 @@ Prefab:
       propertyPath: m_Name
       value: Obj (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114101587786435028, guid: 411569b63ddd8c446b04a4891614d29e,
+        type: 2}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 894022837}
+    - target: {fileID: 114101587786435028, guid: 411569b63ddd8c446b04a4891614d29e,
+        type: 2}
+      propertyPath: Front
+      value: 
+      objectReference: {fileID: 525227242}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 411569b63ddd8c446b04a4891614d29e, type: 2}
   m_IsPrefabAsset: 0
@@ -3937,6 +3947,10 @@ MonoBehaviour:
   betterSword: {fileID: 0}
   dmgOn: 0
   dmgOnAux: 0
+  jumpx1: 0
+  jumpx2: 0
+  jumpxOn1: 0
+  jumpxOn2: 0
 --- !u!136 &710092338
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4338,6 +4352,10 @@ MonoBehaviour:
   betterSword: {fileID: 4535323}
   dmgOn: 0
   dmgOnAux: 0
+  jumpx1: 0
+  jumpx2: 0
+  jumpxOn1: 0
+  jumpxOn2: 0
 --- !u!95 &740750895
 Animator:
   serializedVersion: 3
@@ -5037,8 +5055,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff7e12887138094484a18a951136f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 740750896}
-  nearEnemy: 0
 --- !u!136 &894022842
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6719,7 +6735,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4050252780832754, guid: 8687b2749ea890340b40b4ce344e402f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.31660715
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4050252780832754, guid: 8687b2749ea890340b40b4ce344e402f, type: 2}
       propertyPath: m_LocalPosition.z
@@ -6761,6 +6777,10 @@ Prefab:
     - target: {fileID: 4050252780832754, guid: 8687b2749ea890340b40b4ce344e402f, type: 2}
       propertyPath: m_LocalScale.x
       value: 629.9259
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050252780832754, guid: 8687b2749ea890340b40b4ce344e402f, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.010173455
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8687b2749ea890340b40b4ce344e402f, type: 2}
@@ -7535,9 +7555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f16948bc6999241bb751b6805c4c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ojos: {fileID: 355294873}
-  rangoVision: 20
-  offset: {x: 0, y: 0.5, z: 0}
 --- !u!114 &1390720760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7549,8 +7566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1ee95dbcdbe174f85fcd9ed2334f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aux: 0
-  perseguirObjectivo: {fileID: 0}
 --- !u!114 &1390720761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7562,9 +7577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be0ca50caf06724bb7cfd72571be04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadGiroBusqueda: 120
-  duracionBusqueda: 2
-  ColorEstado: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1390720762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7576,13 +7588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 380a85f478ab34e4abe98e060fdd3f12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WayPoints:
-  - {fileID: 1815366915}
-  - {fileID: 709724855}
-  - {fileID: 12998530}
-  - {fileID: 2133852462}
-  - {fileID: 1507061137}
-  ColorEstado: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1390720763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7594,7 +7599,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68daf82c590cd72468233ce3cb63fff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColorEstado: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1390720764
 MonoBehaviour:
   m_ObjectHideFlags: 0

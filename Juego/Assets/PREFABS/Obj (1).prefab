@@ -60,7 +60,6 @@ GameObject:
   - component: {fileID: 33729550686414228}
   - component: {fileID: 23719961457890328}
   - component: {fileID: 65311242169817036}
-  - component: {fileID: 114225571921769588}
   - component: {fileID: 54810781844579550}
   - component: {fileID: 114081305593821216}
   m_Layer: 0
@@ -333,19 +332,3 @@ MonoBehaviour:
   Front: {fileID: 0}
   rb: {fileID: 54810781844579550}
   aux: 0
---- !u!114 &114225571921769588
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953039817956908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d80865addd27ed349a29166fd0151489, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minDistance: 1
-  maxDistance: 4
-  smooth: 10
-  dollyDirDjusted: {x: 0, y: 0, z: 0}
-  distance: 0
