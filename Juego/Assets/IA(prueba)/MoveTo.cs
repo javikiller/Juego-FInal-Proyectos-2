@@ -47,7 +47,7 @@ public class MoveTo : MonoBehaviour
 
             if (nearPlayer)
             {
-                transform.LookAt(playerLookAt);
+                
                 agent.isStopped = true;
                 Follow();
                 Attack();
