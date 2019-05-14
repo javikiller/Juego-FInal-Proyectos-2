@@ -92,6 +92,22 @@ public class Movimiento : MonoBehaviour
     public bool jumpxOn1;
     public bool jumpxOn2;
 
+    public void Jump()
+    {
+
+        if (Input.GetButtonDown("A_1") && ground)
+        {
+            rb.AddForce(rb.transform.up * 650);
+            jumpxOn1 = true; jumpx2 += 1 * Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("A_1") && contSalto >= 1)
+        {
+            rb.AddForce(rb.transform.up * 650);
+            jumpxOn2 = true;
+        }
+    }
+
     void Start()
     {
         life = 200;
@@ -119,6 +135,7 @@ public class Movimiento : MonoBehaviour
 
         if (jumpxOn1)
         {
+            contSalto += 5 * Time.deltaTime;
             jumpx1 += 1 * Time.deltaTime;
             animator.SetBool(jumpParam, true);
         }
@@ -130,6 +147,7 @@ public class Movimiento : MonoBehaviour
         }
         if (jumpxOn2)
         {
+            contSalto = 0;
             jumpx2 += 1 * Time.deltaTime;
             animator.SetBool(doubleJumpParam, true);
         }
@@ -259,26 +277,7 @@ public class Movimiento : MonoBehaviour
         }
     }
 
-    public void Jump()
-    {
-
-        if (Input.GetButtonDown("A_1") && ground)
-        {
-            rb.AddForce(rb.transform.up * 650);
-            contSalto = 1;
-            jumpxOn1 = true; jumpx2 += 1 * Time.deltaTime;
-        }
-
-        if (Input.GetButtonDown("A_1") && contSalto == 1)
-        {
-            rb.AddForce(rb.transform.up * 650);
-            contSalto = 0;
-            jumpxOn2 = true;
-        }
-
-
-
-    }
+   
 
     public void RecibirDmg()
     {
@@ -290,7 +289,7 @@ public class Movimiento : MonoBehaviour
         if (coll.tag == "floor")
         {
             ground = true;
-            
+            contSalto = 0;
         }
         if (coll.tag == "EspadaEnemiga" && !dmgOn)
         {

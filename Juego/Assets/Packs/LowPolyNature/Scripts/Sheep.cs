@@ -33,7 +33,7 @@ public class Sheep : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         thisobj = this.gameObject;
 
-        enemySword.SetActive(false);
+
         GotoNextPoint();
         rb = GetComponent<Rigidbody>();
     }
