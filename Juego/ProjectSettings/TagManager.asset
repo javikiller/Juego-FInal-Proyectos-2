@@ -13,6 +13,8 @@ TagManager:
   - Espada
   - EspadaEnemiga
   - Herrero
+  - Espada2
+  - BolaVision
   layers:
   - Default
   - TransparentFX

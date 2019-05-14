@@ -25,7 +25,9 @@ public class MoveTo : MonoBehaviour
     public Transform playerLookAt;
     public GameObject enemySword;
     private Rigidbody rb;
-   
+
+    
+
 
     void Start()
     {
@@ -40,6 +42,7 @@ public class MoveTo : MonoBehaviour
 
     void Update()
     {
+        
         if (VidaEnemigo.alaif == true)
         {
             animator.SetBool(mortoParam, false);
@@ -156,7 +159,7 @@ public class MoveTo : MonoBehaviour
 
   
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
@@ -164,10 +167,9 @@ public class MoveTo : MonoBehaviour
         }
         if (other.tag == "Espada" && !dmgOn)
         {
-            RecibirDmg();
-            
+            RecibirDmg();            
         }
-
+      
     }
     void OnTriggerExit(Collider other)
     {
@@ -175,5 +177,7 @@ public class MoveTo : MonoBehaviour
         {
             nearPlayer = false;
         }
+       
+        
     }
 }   
