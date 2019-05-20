@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/Javi/Desktop/UNI SEGUNDO/JuegoFinar/Juego.exe
+C:/Users/Javi/Desktop/Proyectos 2 Beta/Juego.exe
 SceneListBegin?
 Assets/Scenes/Menu.unity
 Assets/Scenes/NivelPrueba.unity
@@ -22,6 +22,7 @@ c7dd12c15208b0447e101f80038706df UnityEngine.Timeline.dll:UnityEngine.Timeline.A
 0ddb2c46096a1e59e0dce07886ce4769 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 0ddb2c46096a1e59e0dce07886ce4769 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 64f3a13c1277a7f1324321d93d0ec13b UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
+0f860ed0f3392f8489b7f3b1c3d258a3 Assembly-CSharp.dll:.EnemigoBola
 366a0ad123c554c07bc4230ae3165150 Assembly-CSharp.dll:.EzMotor
 3c3a1f26e15aac8be3568f25c5f8c452 Assembly-CSharp.dll:.Item
 f6637497451c9a030c421de4a1ad5cdb Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
@@ -100,7 +101,9 @@ e90403eeda069970e0b9de1533de13a6 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.ItemDragHandler
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.PressionButton2
 50854fdef5ca74f0555cf33667ba08e6 Assembly-CSharp.dll:.EstadoPersecucionPlayer
+486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.VidaEL
 0636404bd2ba87f0b7e7ab2cc4f866d9 Assembly-CSharp.dll:.EzCameraSettings
+486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.LentoVisio0n
 486cd95c82d8305219c352c06b776e1f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 9e61f3535f3c55760a1cedfbd114f4af UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 754551afe4f2531f58476bf14c510657 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -130,7 +133,6 @@ da21fc3f8056b1f91c3dd09c7bf4f90a UnityEngine.Networking.dll:UnityEngine.Networki
 fc061f3ae8a876c0687e86378d4a447c UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 7ca56e063bd071986fff4f513cc4f477 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 0a006f3734181ba8b26758f0866152c0 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-56a37276b6c7c1361488276d9ffc41f1 Assembly-CSharp.dll:LowPolyWater.LowPolyWater
 d6a09dcfb6f0005672ac6c657cade8f5 Assembly-CSharp.dll:.PlayerController
 382b8ef512fa8d6108723a01b57af65b UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 d22c788799ee45d8676254eccf20e8b8 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
@@ -146,18 +148,19 @@ dfd33ff9ae3ce8d7ca1f22b475ec2387 UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 daf1ae0e899f6f007aa62ce49ea08318 Assembly-CSharp.dll:.RPG_Controller
 820355838ea0a655d4f4491b47c21f4e Assembly-CSharp.dll:.EffectDemo
 6890e300578ca88e6c95276ab8319be8 Assembly-CSharp.dll:.PlayerFollow
-2739b8df6e0d15d29941a9390373a4aa Assembly-CSharp.dll:.Sheep
+486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.Sheep
 7a8f4d5767d0e9d0bf7c0260c7e74adb Assembly-CSharp.dll:.CameraFollow
 80e6b104aee86fb6f3396e81f8dab731 Assembly-CSharp.dll:.HerreroScript
+486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.VidaE1
 c10e5a76f665e3bb19f9671a6dec3d12 Assembly-CSharp.dll:.RangeArrow
 af346d9dbb8ab720aa8cd25df01ae395 Assembly-CSharp.dll:.ColliderObj
 db7a4b7a7dcc68f6527992cd4d2818c2 Assembly-CSharp.dll:.RangeAtack
 f16835701e71dd5d6fb1fed4b7aff1d8 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 c9a49a96e274d2316623e5380b38c2a4 Assembly-CSharp.dll:.EzPlayerController
-486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.VidaEnemigo
 8c075f845e18474cf72d2dceaebc8a73 Assembly-CSharp.dll:.MejoraArma
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.dasdsadsad
 60464f6c6bf95bde2f9eb212dac02791 Assembly-CSharp.dll:.Escudo
+f3b4f60c4c94afc1021dd40580dbcf7c Assembly-CSharp.dll:.EnemigoLento
 486cd95c82d8305219c352c06b776e1f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.RotationScene
 4077775b7cc823952ea2a388a24aaf9e Assembly-CSharp.dll:.EzLockOnTarget
@@ -234,6 +237,7 @@ e04611b8715e6833d2bd7010fc6be10b Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.PressionButton1
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.ArrowFollow
 e77d5d760d7a73a81cdba682e9794619 Assembly-CSharp.dll:.ColumnasUp
+486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.BolaVision
 b894788a8ead81c9f15afde67f02f809 Assembly-CSharp.dll:.Movenemigo
 2f9af06a78208a67db480e9bfed4a076 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 9318334b30e9f195f573b2ce00154b95 Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient

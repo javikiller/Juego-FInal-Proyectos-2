@@ -18,21 +18,21 @@ public class ColumnasUp : MonoBehaviour {
         initialPos = transform.position;
     }
 
-        
-    void FixedUpdate()
+
+    void Update()
     {
         if (activo)
         {
             contador += 1 * Time.deltaTime;
             if (contador <= 1)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y + 0.05f, transform.position.z);
             }
 
         }
         if (!activo)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.05f, transform.position.z);
             if (transform.position.y <= initialPos.y)
             {
                 transform.position = initialPos;

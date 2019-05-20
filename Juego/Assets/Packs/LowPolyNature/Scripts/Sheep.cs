@@ -1,167 +1,100 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
-
 
 public class Sheep : MonoBehaviour
 {
-    public Transform[] points;
-    public Transform target;
-    private int destPoint = 0;
-    private NavMeshAgent agent;
-    public GameObject thisobj;
-    public bool nearPlayer = false;
-    public float auxVida;
-    public Animator animator;
-    public string walkParam = "move";
-    public string followParam = "follow";
-    public string combatParam = "combat";
-    public string fwParam = "followCombat";
-    public string dmgTakenParam = "dmgTaken";
-    public string mortoParam = "morto";
-    public bool dmgOn = false;
-    public float dmgOnAux;
-    public float contadorAtaque = 0;
-    public Transform playerLookAt;
-    public GameObject enemySword;
-    private Rigidbody rb;
+    //private NavMeshAgent mAgent;
+
+    //private Animator mAnimator;
+
+    //public GameObject Player;
+
+    //public float EnemyDistanceRun = 4.0f;
+
+    //private bool mIsDead = false;
+
+    //public GameObject[] ItemsDeadState = null;
+
+    //// Use this for initialization
+    //void Start()
+    //{
+    //    mAgent = GetComponent<NavMeshAgent>();
+
+    //    mAnimator = GetComponent<Animator>();
+    //}
+
+    //private bool IsNavMeshMoving
+    //{
+    //    get
+    //    { 
+    //        return mAgent.velocity.magnitude > 0.1f;
+    //    }
+    //}
+
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    InteractableItemBase item = collision.collider.gameObject.GetComponent<InteractableItemBase>();
+    //    if(item != null)
+    //    {
+    //        // Hit by a weapon
+    //        if(item.ItemType == EItemType.Weapon)
+    //        {
+    //            if(Player.GetComponent<PlayerController>().IsAttacking)
+    //            {
+    //                mIsDead = true;
+    //                mAgent.enabled = false;
+    //                mAnimator.SetTrigger("die");
+    //                Destroy(GetComponent<Rigidbody>());
+
+    //                Invoke("ShowItemsDeadState", 1.2f);
+    //            }
+    //        }
+    //    }
+    //}
+
+    //void ShowItemsDeadState()
+    //{
+    //    // Activate the items
+    //    foreach(var item in ItemsDeadState)
+    //    {
+    //        item.SetActive(true);
+    //    }
+
+    //    Destroy(GetComponent<CapsuleCollider>());
+
+    //    // Hide the sheep mesh
+    //    transform.Find("sheep_mesh").GetComponent<SkinnedMeshRenderer>().enabled = false;
+    //}
 
 
-    void Start()
-    {
-        animator.SetBool(walkParam, true);
-        agent = GetComponent<NavMeshAgent>();
-        thisobj = this.gameObject;
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    if (mIsDead)
+    //        return;
 
+    //    // Only runaway if player is armed
+    //    bool isPlayerArmed = Player.GetComponent<PlayerController>().IsArmed;
 
-        GotoNextPoint();
-        rb = GetComponent<Rigidbody>();
-    }
+    //    // Performance optimization: Thx to kyl3r123 :-)
+    //    float squaredDist = (transform.position - Player.transform.position).sqrMagnitude;
+    //    float EnemyDistanceRunSqrt = EnemyDistanceRun * EnemyDistanceRun;
 
-    void Update()
-    {
-        animator.SetBool(walkParam, true);
-        if (VidaEnemigo.alaif == true)
-        {
-            animator.SetBool(mortoParam, false);
-            auxVida = VidaEnemigo.vida;
+    //    // Run away from player
+    //    if (squaredDist < EnemyDistanceRunSqrt && isPlayerArmed)
+    //    {
+    //        // Vector player to me
+    //        Vector3 dirToPlayer = transform.position - Player.transform.position;
 
-            if (nearPlayer)
-            {
-                transform.LookAt(playerLookAt);
-                agent.isStopped = true;
-                Follow();
-                Attack();
-                animator.SetBool(followParam, true);
-            }
-            if (!nearPlayer)
-            {
-                agent.isStopped = false;
-                if (!agent.pathPending && agent.remainingDistance < 0.5f)
-                {
-                    GotoNextPoint();
-                }
-                animator.SetBool(walkParam, true);
-                animator.SetBool(followParam, false);
-            }
+    //        Vector3 newPos = transform.position + dirToPlayer;
 
-            if (dmgOn)
-            {
-                dmgOnAux += 1 * Time.deltaTime;
-                animator.SetBool(dmgTakenParam, true);
-                if (dmgOnAux >= 1)
-                {
+    //        mAgent.SetDestination(newPos);
 
+    //    }
 
-                    dmgOnAux = 0;
-                    dmgOn = false;
+    //    mAnimator.SetBool("walk", IsNavMeshMoving);
 
-                }
-                if (dmgOnAux == 0)
-                {
-                    animator.SetBool(dmgTakenParam, false);
-                }
-
-            }
-        }
-        
-    }
-
-    public void RecibirDmg()
-    {
-        dmgOn = true;
-    }
-
-    public void GotoNextPoint()
-    {
-        if (points.Length == 0)
-            return;
-
-        agent.destination = points[destPoint].position;
-
-
-        destPoint = (destPoint + 1) % points.Length;
-    }
-
-    public void Follow()
-    {
-        agent.isStopped = false;
-        agent.destination = target.position;
-    }
-
-    void Attack()
-    {
-        if (agent.remainingDistance < 2.5f)
-        {
-            animator.SetBool(followParam, false);
-            animator.SetBool(fwParam, false);
-            contadorAtaque += 1 * Time.deltaTime;
-            agent.isStopped = true;
-            if (contadorAtaque <= 0.75f)
-            {
-                enemySword.SetActive(true);
-                animator.SetBool(combatParam, true);
-            }
-            if (contadorAtaque >= 1)
-            {
-                animator.SetBool(combatParam, false);
-                enemySword.SetActive(false);
-
-            }
-            if (contadorAtaque >= 3)
-            {
-
-                contadorAtaque = 0;
-            }
-
-        }
-        if (agent.remainingDistance > 2.5f)
-        {
-            agent.isStopped = false;
-            animator.SetBool(fwParam, true);
-            animator.SetBool(combatParam, false);
-            animator.SetBool(followParam, true);
-        }
-    }
-
-
-    void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            nearPlayer = true;
-        }
-        if (other.tag == "Espada" && !dmgOn)
-        {
-            RecibirDmg();
-        }
-
-    }
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            nearPlayer = false;
-        }
-    }
+    //}
 }

@@ -16,7 +16,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: defaultMat
-    second: {fileID: 2100000, guid: 417e73e7d2d76f84eb5333d3c93287bb, type: 2}
+    second: {fileID: 2100000, guid: df5aa004184e78b4fb63b6ba4a8f03eb, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -50,7 +50,6 @@ ModelImporter:
     globalScale: 0.35
     meshCompression: 0
     addColliders: 0
-    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -75,9 +74,6 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
-    blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

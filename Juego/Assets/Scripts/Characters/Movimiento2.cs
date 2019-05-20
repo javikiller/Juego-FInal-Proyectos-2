@@ -15,7 +15,7 @@ public class Movimiento2 : MonoBehaviour
     public float minimumX = -360F;
     public float maximumX = 360F;
 
-    float rotationX = 0F;
+    //float rotationX = 0F;
     public Rigidbody rb;
     public float walkspeed;
     public GameObject camara1;
@@ -47,8 +47,8 @@ public class Movimiento2 : MonoBehaviour
 
     private Vector3 desiredMovemntDirection;
 
-    private float rotY = 0.0f;
-    private float rotX = 0.0f;
+    //private float rotY = 0.0f;
+    //private float rotX = 0.0f;
 
     public bool ground;
     private float acelerationFallCont = 0;

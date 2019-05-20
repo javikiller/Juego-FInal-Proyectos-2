@@ -24,7 +24,7 @@ public class MoveTo : MonoBehaviour
     public float contadorAtaque = 0;
     public Transform playerLookAt;
     public GameObject enemySword;
-    private Rigidbody rb;
+    //private Rigidbody rb;
 
     
 
@@ -37,20 +37,20 @@ public class MoveTo : MonoBehaviour
        
         enemySword.SetActive(false);
         GotoNextPoint();
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
         
-        if (VidaEnemigo.alaif == true)
+        if (VidaELento.alaif == true)
         {
             animator.SetBool(mortoParam, false);
-            auxVida = VidaEnemigo.vida;
+            auxVida = VidaELento.vida;
 
             if (nearPlayer)
             {
-                
+                transform.LookAt(playerLookAt);
                 agent.isStopped = true;
                 Follow();
                 Attack();
@@ -67,7 +67,7 @@ public class MoveTo : MonoBehaviour
                 animator.SetBool(walkParam, true);
                 animator.SetBool(followParam, false);
             }
-            if (VidaEnemigo.damaged)
+            if (VidaELento.damaged)
             {
                 animator.SetBool(dmgTakenParam, true);
             }
@@ -88,9 +88,9 @@ public class MoveTo : MonoBehaviour
             }
         }
         
-        if (!VidaEnemigo.alaif)
+        if (!VidaELento.alaif)
         {
-            VidaEnemigo.vida = 0;
+            VidaELento.vida = 0;
             animator.SetBool(mortoParam, true);
             animator.SetBool(walkParam, false);
             animator.SetBool(followParam, false);

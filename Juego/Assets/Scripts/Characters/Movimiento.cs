@@ -70,7 +70,7 @@ public class Movimiento : MonoBehaviour
     private float rotY = 0.0f;
     private float rotX = 0.0f;
 
-    public float contSalto= 0;
+    public float contSalto = 0;
 
     public Animator animator;
     private float SpeedAux = 0;
@@ -92,21 +92,7 @@ public class Movimiento : MonoBehaviour
     public bool jumpxOn1;
     public bool jumpxOn2;
 
-    public void Jump()
-    {
-
-        if (Input.GetButtonDown("A_1") && ground)
-        {
-            rb.AddForce(rb.transform.up * 650);
-            jumpxOn1 = true; jumpx2 += 1 * Time.deltaTime;
-        }
-
-        if (Input.GetButtonDown("A_1") && contSalto >= 1)
-        {
-            rb.AddForce(rb.transform.up * 650);
-            jumpxOn2 = true;
-        }
-    }
+    
 
     void Start()
     {
@@ -122,6 +108,7 @@ public class Movimiento : MonoBehaviour
 
     void FixedUpdate ()  
     {
+       
         life += 2 * Time.deltaTime;
 
         if(life >= 200)
@@ -135,7 +122,6 @@ public class Movimiento : MonoBehaviour
 
         if (jumpxOn1)
         {
-            contSalto += 5 * Time.deltaTime;
             jumpx1 += 1 * Time.deltaTime;
             animator.SetBool(jumpParam, true);
         }
@@ -147,7 +133,6 @@ public class Movimiento : MonoBehaviour
         }
         if (jumpxOn2)
         {
-            contSalto = 0;
             jumpx2 += 1 * Time.deltaTime;
             animator.SetBool(doubleJumpParam, true);
         }
@@ -200,7 +185,7 @@ public class Movimiento : MonoBehaviour
             {
                 MovementFunction();
                 Giro();
-
+                Jump();
 
                 vely = Input.GetAxis("L_YAxis_1");
                 velx = Input.GetAxis("L_XAxis_1");
@@ -228,7 +213,7 @@ public class Movimiento : MonoBehaviour
                     
                 }
 
-                Jump();
+                
                 
 
 
@@ -277,7 +262,27 @@ public class Movimiento : MonoBehaviour
         }
     }
 
-   
+    public void Jump()
+    {
+
+        if (Input.GetButtonDown("A_1") && ground)
+        {
+            rb.AddForce(rb.transform.up * 650);
+            contSalto = 1;
+            jumpxOn1 = true;
+            jumpx2 += 1 * Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("A_1") && contSalto == 1 && !ground)
+        {
+            rb.AddForce(rb.transform.up * 650);
+            contSalto = 0;
+            jumpxOn2 = true;
+        }
+
+
+
+    }
 
     public void RecibirDmg()
     {
@@ -290,18 +295,30 @@ public class Movimiento : MonoBehaviour
         {
             ground = true;
             contSalto = 0;
+
         }
         if (coll.tag == "EspadaEnemiga" && !dmgOn)
         {
             RecibirDmg();
             life -= 20;
         }
+        if (coll.tag == "BolaDmg")
+        {
+            RecibirDmg();
+            life -= 30;
+        }
+
     }
     private void OnTriggerStay(Collider coll)
     {
         if (coll.tag == "floor")
         {
             
+        }
+        if (coll.tag == "LentoDmg")
+        {
+            RecibirDmg();
+            life -= 20* Time.deltaTime;
         }
     }
     void OnTriggerExit(Collider coll)

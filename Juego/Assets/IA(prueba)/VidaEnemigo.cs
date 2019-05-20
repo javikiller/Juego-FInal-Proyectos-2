@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VidaEnemigo : MonoBehaviour
+public class VidaELento : MonoBehaviour
 {
     private GameObject enemy;
     public static float vida = 200f;
