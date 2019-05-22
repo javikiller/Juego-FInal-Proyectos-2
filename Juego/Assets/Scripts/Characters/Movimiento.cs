@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Movimiento : MonoBehaviour
 {
-    public float life;
+    public static float life;
+    public float auxLife;
 
     public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
     public RotationAxes axes = RotationAxes.MouseXAndY;
@@ -108,7 +109,8 @@ public class Movimiento : MonoBehaviour
 
     void FixedUpdate ()  
     {
-       
+        auxLife = life;
+
         life += 2 * Time.deltaTime;
 
         if(life >= 200)
@@ -159,23 +161,17 @@ public class Movimiento : MonoBehaviour
 
         if (dmgOn)
         {
-            dmgOnAux += 1 * Time.deltaTime;
+           
             animator.SetBool(dmgDoneParam, true);
-            if (dmgOnAux >= 1)
-            {
-                
-               
-                dmgOnAux = 0;
-                dmgOn = false;
-                
-            }
-            if (dmgOnAux == 0)
-            {
-                animator.SetBool(dmgDoneParam, false);
-            }
+            dmgOn = false;
 
         }
-        
+        else
+        {
+            animator.SetBool(dmgDoneParam, false);
+            
+        }
+
         if (pj == false)
         {
             Apuntar();
@@ -199,6 +195,7 @@ public class Movimiento : MonoBehaviour
                     {
                         sword.SetActive(false);
                         betterSword.SetActive(false);
+                        dmg = false;
                     }
                 }
                 if (!dmg)
@@ -207,16 +204,7 @@ public class Movimiento : MonoBehaviour
                     sword.SetActive(false);
                     betterSword.SetActive(false);
                 }
-                if (dmgAux >= 1.2f)
-                {
-                    dmg = false;
-                    
-                }
-
-                
-                
-
-
+             
                 if (Input.GetButton("LS_1"))
                 {
                     SpeedAux = 1.5f;
@@ -232,7 +220,7 @@ public class Movimiento : MonoBehaviour
                 {
                     
                      SpeedAux = 1.5f;
-                }   
+                }
                 else
                 {
                     SpeedAux = new Vector2(vely, velx).normalized.sqrMagnitude;
@@ -348,25 +336,25 @@ public class Movimiento : MonoBehaviour
 
     public void Apuntar()
     {
-        if (RangeAtack.ranged)
-        {
-            float inputX = Input.GetAxis("R_XAxis_1");
-            float inputZ = Input.GetAxis("R_YAxis_1");
-            axisX = Input.GetAxis("R_XAxis_1");
-            axisY = Input.GetAxis("R_YAxis_1");
-            finalInputX = inputX + axisX;
-            finalInputZ = inputZ + axisY;
+        //if (RangeAtack.ranged)
+        //{
+        //    float inputX = Input.GetAxis("R_XAxis_1");
+        //    float inputZ = Input.GetAxis("R_YAxis_1");
+        //    axisX = Input.GetAxis("R_XAxis_1");
+        //    axisY = Input.GetAxis("R_YAxis_1");
+        //    finalInputX = inputX + axisX;
+        //    finalInputZ = inputZ + axisY;
 
-            rotY += finalInputX * inputSensitivity * Time.deltaTime;
+        //    rotY += finalInputX * inputSensitivity * Time.deltaTime;
 
 
-            rotX += finalInputZ * inputSensitivity * Time.deltaTime;
+        //    rotX += finalInputZ * inputSensitivity * Time.deltaTime;
 
-            rotX = Mathf.Clamp(rotX, -30, 10);
+        //    rotX = Mathf.Clamp(rotX, -30, 10);
 
-            Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
-            transform.rotation = localRotation;
-        }
+        //    Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
+        //    transform.rotation = localRotation;
+        //}
     }
 
     

@@ -321,15 +321,6 @@
     <Compile Include="Assets\EazyCamera\Code\StateMachine\CameraStates\EzStationaryState.cs" />
     <Compile Include="Assets\EazyCamera\Code\StateMachine\EzStateMachine.cs" />
     <Compile Include="Assets\EazyCamera\Code\Util\ExtensionMethods.cs" />
-    <Compile Include="Assets\IA(prueba)\BolaVision.cs" />
-    <Compile Include="Assets\IA(prueba)\EnemigoBola.cs" />
-    <Compile Include="Assets\IA(prueba)\EnemigoLento.cs" />
-    <Compile Include="Assets\IA(prueba)\LentoVisio0n.cs" />
-    <Compile Include="Assets\IA(prueba)\MoveTo.cs" />
-    <Compile Include="Assets\IA(prueba)\PlayerOffMooving2.cs" />
-    <Compile Include="Assets\IA(prueba)\VidaE1.cs" />
-    <Compile Include="Assets\IA(prueba)\VidaEL.cs" />
-    <Compile Include="Assets\IA(prueba)\VidaEnemigo.cs" />
     <Compile Include="Assets\Packs\Low_Poly_Survival\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\Packs\LowPolyNature\Scripts\Axe.cs" />
     <Compile Include="Assets\Packs\LowPolyNature\Scripts\Crate.cs" />
@@ -365,8 +356,18 @@
     <Compile Include="Assets\Scripts\Camara\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Characters\Ataque.cs" />
     <Compile Include="Assets\Scripts\Characters\Ataque2.cs" />
+    <Compile Include="Assets\Scripts\Characters\BarraDeVidaPlayer.cs" />
     <Compile Include="Assets\Scripts\Characters\ColliderObj.cs" />
     <Compile Include="Assets\Scripts\Characters\Escudo.cs" />
+    <Compile Include="Assets\Scripts\Characters\IA(prueba)\BolaVision.cs" />
+    <Compile Include="Assets\Scripts\Characters\IA(prueba)\EnemigoBola.cs" />
+    <Compile Include="Assets\Scripts\Characters\IA(prueba)\EnemigoLento.cs" />
+    <Compile Include="Assets\Scripts\Characters\IA(prueba)\LentoVisio0n.cs" />
+    <Compile Include="Assets\Scripts\Characters\IA(prueba)\MoveTo.cs" />
+    <Compile Include="Assets\Scripts\Characters\IA(prueba)\PlayerOffMooving2.cs" />
+    <Compile Include="Assets\Scripts\Characters\IA(prueba)\VidaE1.cs" />
+    <Compile Include="Assets\Scripts\Characters\IA(prueba)\VidaEL.cs" />
+    <Compile Include="Assets\Scripts\Characters\IA(prueba)\VidaEnemigo.cs" />
     <Compile Include="Assets\Scripts\Characters\IA\ControladorNavMeshPlayer.cs" />
     <Compile Include="Assets\Scripts\Characters\IA\ControladorVisionPlayer.cs" />
     <Compile Include="Assets\Scripts\Characters\IA\EstadoAlertaPlayer.cs" />
@@ -404,6 +405,7 @@
     <Compile Include="Assets\Scripts\RotationScene.cs" />
     <Compile Include="Assets\Scripts\RPG_Controller.cs" />
     <Compile Include="Assets\Scripts\SceneCHStart.cs" />
+    <Compile Include="Assets\Scripts\VidaEnemigo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EazyCamera\README.txt" />
