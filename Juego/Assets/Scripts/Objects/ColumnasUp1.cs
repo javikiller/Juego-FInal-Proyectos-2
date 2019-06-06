@@ -19,25 +19,25 @@ public class ColumnasUp1 : MonoBehaviour {
 	}
 	
 	
-	void Update ()
+	void FixedUpdate ()
     {
-        if (activo)
+        if (PressionButton1.activo)
         {
             contador += 1 * Time.deltaTime;
             if (contador <= 1)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y + 0.05f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y + 0.45f, transform.position.z);
             }
             if(contador >= 2)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y - 0.05f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y - 0.45f, transform.position.z);
             }
             if(transform.position.y <= initialPos.y)
             {
                 transform.position = initialPos;
             }
         }
-        if (!activo)
+        if (!PressionButton1.activo)
         {
             transform.position = initialPos;
             
@@ -46,26 +46,14 @@ public class ColumnasUp1 : MonoBehaviour {
         {
             contador = 0;
         }
-        if (!up1)
-        {
-            contador = 0;
-            activo = false;
-        }
+        
         ColumnsUp();
 	}
     public void ColumnsUp()
     {
-        if (up1 && estado ==0)
+        if (PressionButton1.activo && estado == 0)
         {
             activo = true;
-            estado = 1;
-            
-        }
-        if(!up1 && estado == 1)
-        {
-            activo = false;
-            estado = 0;
-           
         }
     }
 }

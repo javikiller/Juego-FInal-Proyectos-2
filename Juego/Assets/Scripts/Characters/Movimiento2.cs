@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AI;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Movimiento2 : MonoBehaviour
 {
     public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
@@ -55,6 +57,29 @@ public class Movimiento2 : MonoBehaviour
 
     public static bool moovingObject = false;
 
+    public float Velocidad = 80;
+
+    //IA
+    public Transform[] points;
+    public Transform target;
+    private int destPoint = 0;
+    private NavMeshAgent agent;
+    public GameObject thisobj;
+    public GameObject follow;
+
+    public void GotoNextPoint()
+    {
+        agent.destination = follow.transform.position;
+        if (agent.remainingDistance < 4.5f)
+        {
+            agent.isStopped = true;
+        }
+        else
+        {
+            agent.isStopped = false;
+        }
+
+    }
 
     void Start()
     {
@@ -62,14 +87,24 @@ public class Movimiento2 : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //GetComponent<Rigidbody>().rotation = Quaternion.identity;
 
+        agent = GetComponent<NavMeshAgent>();
+        thisobj = this.gameObject;
+
+        
     }
    
 
 
-    void Update()
+    void FixedUpdate()
     {
+        if (!Movimiento.pj)
+        {
+            agent.isStopped = false;
+            GotoNextPoint();
+        }
         if (Movimiento.pj == true)
         {
+            agent.isStopped = true;
             Saltar();
             MovementFunction();
             Giro();
@@ -92,34 +127,34 @@ public class Movimiento2 : MonoBehaviour
         {
             if (Input.GetAxis("L_YAxis_1") < 0)
             {
-                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -30));
+                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad * 2));
                 if (Input.GetButton("LS_1") && ground)
                 {
-                    rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -120));
+                    rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad / 2))));
                 }
             }
             if (Input.GetAxis("L_YAxis_1") > 0)
             {
-                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -30));
+                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad * 2));
                 if (Input.GetButton("LS_1") && ground)
                 {
-                    rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -120));
+                    rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad / 2))));
                 }
             }
             if (Input.GetAxis("L_XAxis_1") > 0)
             {
-                rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * 30));
+                rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad * 2));
                 if (Input.GetButton("LS_1") && ground)
                 {
-                    rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * 120));
+                    rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * (Velocidad + (Velocidad / 2))));
                 }
             }
             if (Input.GetAxis("L_XAxis_1") < 0)
             {
-                rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * 30));
+                rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad * 2));
                 if (Input.GetButton("LS_1") && ground)
                 {
-                    rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * 120));
+                    rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * (Velocidad + (Velocidad / 2))));
                 }
             }
         }
@@ -127,13 +162,19 @@ public class Movimiento2 : MonoBehaviour
         {
             if (Input.GetAxis("L_YAxis_1") < 0)
             {
-                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -30));
-                
+                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad * 2));
+                if (Input.GetButton("LS_1") && ground)
+                {
+                    rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad / 2))));
+                }
             }
             if (Input.GetAxis("L_YAxis_1") > 0)
             {
-                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -30));
-                
+                rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad * 2));
+                if (Input.GetButton("LS_1") && ground)
+                {
+                    rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad / 2))));
+                }
             }
         }
     }

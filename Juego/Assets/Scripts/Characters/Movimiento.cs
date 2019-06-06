@@ -93,7 +93,8 @@ public class Movimiento : MonoBehaviour
     public bool jumpxOn1;
     public bool jumpxOn2;
 
-    
+    public bool muerto;
+    public GameObject respanwn;
 
     void Start()
     {
@@ -104,11 +105,17 @@ public class Movimiento : MonoBehaviour
         //GetComponent<Rigidbody>().rotation = Quaternion.identity;
         pj = false;
 
+        muerto = false;
     }
 
 
     void FixedUpdate ()  
     {
+        if(muerto == true)
+        {
+            this.gameObject.transform.position = respanwn.transform.position;
+            muerto = false;
+        }
         auxLife = life;
 
         life += 2 * Time.deltaTime;
@@ -117,14 +124,17 @@ public class Movimiento : MonoBehaviour
         {
             life = 200;
         }
+
         if(life <= 0)
         {
             life = 0;
+            muerto = true;
         }
-
+               
         if (jumpxOn1)
         {
-            jumpx1 += 1 * Time.deltaTime;
+            contSalto += Time.deltaTime * 4.5f;
+            jumpx1 += 1.5f * Time.deltaTime;
             animator.SetBool(jumpParam, true);
         }
         if (jumpx1 >= 1)
@@ -135,7 +145,7 @@ public class Movimiento : MonoBehaviour
         }
         if (jumpxOn2)
         {
-            jumpx2 += 1 * Time.deltaTime;
+            jumpx2 += 1.5f * Time.deltaTime;
             animator.SetBool(doubleJumpParam, true);
         }
         if (jumpx2 >= 1)
@@ -255,21 +265,26 @@ public class Movimiento : MonoBehaviour
 
         if (Input.GetButtonDown("A_1") && ground)
         {
-            rb.AddForce(rb.transform.up * 650);
-            contSalto = 1;
+            rb.AddForce(rb.transform.up * 550);
+            
             jumpxOn1 = true;
-            jumpx2 += 1 * Time.deltaTime;
         }
-
-        if (Input.GetButtonDown("A_1") && contSalto == 1 && !ground)
+        if(contSalto >= 1)
         {
-            rb.AddForce(rb.transform.up * 650);
+            DoubleJump();
+
+        }
+        
+
+    }
+    public void DoubleJump()
+    {
+        if (Input.GetButtonDown("A_1") )
+        {
+            rb.AddForce(rb.transform.up * 550);
             contSalto = 0;
             jumpxOn2 = true;
         }
-
-
-
     }
 
     public void RecibirDmg()
@@ -281,7 +296,7 @@ public class Movimiento : MonoBehaviour
     {
         if (coll.tag == "floor")
         {
-            ground = true;
+            
             contSalto = 0;
 
         }
@@ -295,13 +310,16 @@ public class Movimiento : MonoBehaviour
             RecibirDmg();
             life -= 30;
         }
-
+        if(coll.tag == "aguamuerte")
+        {
+            muerto = true;
+        }
     }
     private void OnTriggerStay(Collider coll)
     {
         if (coll.tag == "floor")
         {
-            
+            ground = true;
         }
         if (coll.tag == "LentoDmg")
         {
@@ -363,7 +381,7 @@ public class Movimiento : MonoBehaviour
     {
         if (Input.GetAxis("L_YAxis_1") < 0)
         {
-            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad * 4));
+            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad));
             if (Input.GetButton("LS_1") && ground)
             {
                 rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad/2))));
@@ -371,7 +389,7 @@ public class Movimiento : MonoBehaviour
         }
         if (Input.GetAxis("L_YAxis_1") > 0)
         {
-            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad * 4));
+            rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -Velocidad));
             if (Input.GetButton("LS_1") && ground)
             {
                 rb.AddForce((mira.transform.forward * Input.GetAxis("L_YAxis_1") * -(Velocidad + (Velocidad / 2))));
@@ -379,7 +397,7 @@ public class Movimiento : MonoBehaviour
         }
         if (Input.GetAxis("L_XAxis_1") > 0)
         {
-            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad * 4));
+            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad));
             if (Input.GetButton("LS_1") && ground)
             {
                 rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * (Velocidad + (Velocidad / 2))));
@@ -387,7 +405,7 @@ public class Movimiento : MonoBehaviour
         }
         if (Input.GetAxis("L_XAxis_1") < 0)
         {
-            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad * 4));
+            rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * Velocidad));
             if (Input.GetButton("LS_1") && ground)
             {
                 rb.AddForce((mira.transform.right * Input.GetAxis("L_XAxis_1") * (Velocidad + (Velocidad / 2))));

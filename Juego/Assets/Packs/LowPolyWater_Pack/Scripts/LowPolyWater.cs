@@ -92,7 +92,7 @@ namespace LowPolyWater
             }
 
             //Update the mesh properties
-    
+            mesh.vertices = vertices;
             mesh.RecalculateNormals();
             mesh.MarkDynamic();
             meshFilter.mesh = mesh;
